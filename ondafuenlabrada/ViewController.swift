@@ -10,10 +10,16 @@ import UIKit
 
 class ViewController: UIViewController {
 
+  let radioPlayer = Player.radio
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+    
+    radioPlayer.rate = 1.0
   }
+  
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -21,5 +27,14 @@ class ViewController: UIViewController {
   }
 
 
+  @IBAction func playRadio(sender: AnyObject) {
+    radioPlayer.play()
+    
+  }
+  
+  
+  @IBAction func stopRadio(sender: AnyObject) {
+    radioPlayer.pause()
+  }
 }
 
