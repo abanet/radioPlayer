@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -36,16 +37,51 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YO-yz-9Np">
+                                <rect key="frame" x="0.0" y="376" width="600" height="80"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="d2v-Gv-GDd">
+                                        <rect key="frame" x="18" y="25" width="564" height="31"/>
+                                        <connections>
+                                            <action selector="cambiarVolumen:" destination="BYZ-38-t0r" eventType="valueChanged" id="0hL-rV-n5Q"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" red="0.88642254860354219" green="0.32462856601563583" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="KlC-HX-X3K"/>
+                                    <constraint firstItem="d2v-Gv-GDd" firstAttribute="leading" secondItem="4YO-yz-9Np" secondAttribute="leading" constant="20" id="Mzy-31-Jxm"/>
+                                    <constraint firstAttribute="trailing" secondItem="d2v-Gv-GDd" secondAttribute="trailing" constant="20" id="exG-lA-8Og"/>
+                                    <constraint firstItem="d2v-Gv-GDd" firstAttribute="centerX" secondItem="4YO-yz-9Np" secondAttribute="centerX" id="tKo-Ob-JI3"/>
+                                    <constraint firstItem="d2v-Gv-GDd" firstAttribute="centerY" secondItem="4YO-yz-9Np" secondAttribute="centerY" id="zsG-r0-E84"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="4YO-yz-9Np" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="4YM-Yj-KZF"/>
+                            <constraint firstItem="4YO-yz-9Np" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="662-QA-WAC"/>
                             <constraint firstItem="pex-Yy-fyr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="BZp-93-Kbt"/>
+                            <constraint firstAttribute="trailing" secondItem="4YO-yz-9Np" secondAttribute="trailing" id="Iqt-N5-Hxb"/>
                             <constraint firstItem="pex-Yy-fyr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TWW-Eb-fde"/>
+                            <constraint firstItem="4YO-yz-9Np" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="VkD-4t-7Cv"/>
+                            <constraint firstItem="4YO-yz-9Np" firstAttribute="top" secondItem="pex-Yy-fyr" secondAttribute="bottom" constant="61" id="qQq-gS-8ok"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="4YM-Yj-KZF"/>
+                                <exclude reference="662-QA-WAC"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="slider" destination="d2v-Gv-GDd" id="cVp-UV-8wY"/>
+                        <outlet property="viewSlide" destination="4YO-yz-9Np" id="Jxh-GU-Y0C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="238" y="516"/>
         </scene>
     </scenes>
 </document>
