@@ -17,6 +17,10 @@ class ViewController: UIViewController {
   
   @IBOutlet weak var logoOndoFuenlabrada: UIImageView!
   
+  @IBOutlet weak var btnPlay: UIButton!
+  @IBOutlet weak var btnPausa: UIButton!
+  
+  
   let radioPlayer = Player.radio
   
   // Apple: An audio session is a singleton object that you employ to set the audio context for your app and to express to the system your intentions for your app’s audio behavior.
@@ -28,10 +32,20 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+        radioPlayer.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions(), context: nil)
+    
+  }
+  
+  
+  override func viewWillAppear(animated: Bool) {
     // Configuración de la radio
     radioPlayer.rate = 1.0
     
+    // Inicialmente la radio está encendida
+    btnPlay.enabled = false
+    btnPausa.enabled = true
     
+
     // Apple: When using this category, your app audio continues with the Silent switch set to silent or when the screen locks. (The switch is called the Ring/Silent switch on iPhone.) To continue playing audio when your app transitions to the background (for example, when the screen locks), add the audio value to the UIBackgroundModes key in your information property list file.
     do {
       try session.setCategory(AVAudioSessionCategoryPlayback)
@@ -39,12 +53,6 @@ class ViewController: UIViewController {
       // error
     }
     
-  }
-  
-  
-  
-  
-  override func viewWillAppear(animated: Bool) {
     // Establecemos el slider para el volumen
     setupVolumeSlider()
     // Creamos y lanzamos la animación (al arrancar la app se escuchará la radio por defecto)
@@ -57,20 +65,37 @@ class ViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+  deinit {
+    radioPlayer.removeObserver(self, forKeyPath: "status", context: nil)
+  }
 
+  // OBSERVADORES
+  override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    
+    if object as! NSObject == radioPlayer {
+        print("observador dice estado = \(radioPlayer.status.rawValue)")
+    }
+    
+    
+  }
 
   // MARK:  Botones de radio
   @IBAction func playRadio(sender: AnyObject) {
-    print("play")
+    print("Play pulsado: \(radioPlayer.status.rawValue)")
     radioPlayer.play()
     startNowPlayingAnimation()
-
+    btnPlay.enabled = false
+    btnPausa.enabled = true
   }
   
   
   @IBAction func stopRadio(sender: AnyObject) {
     stopNowPlayingAnimation()
     radioPlayer.pause()
+    btnPlay.enabled = true
+    btnPausa.enabled = false
+
   }
   
   

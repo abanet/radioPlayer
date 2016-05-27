@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="nOK-Xd-ORd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundOnda" translatesAutoresizingMaskIntoConstraints="NO" id="nOK-Xd-ORd">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pex-Yy-fyr">
@@ -189,6 +189,8 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="btnPausa" destination="4XQ-Io-d7s" id="kPT-U4-HE0"/>
+                        <outlet property="btnPlay" destination="ktF-9B-tbx" id="lOm-Bu-8ID"/>
                         <outlet property="logoOndoFuenlabrada" destination="vWX-wH-gJg" id="mPn-wf-5az"/>
                         <outlet property="nowPlayingImageView" destination="h8D-7N-h8l" id="jjf-0O-MlX"/>
                         <outlet property="slider" destination="d2v-Gv-GDd" id="cVp-UV-8wY"/>
@@ -202,7 +204,7 @@
     </scenes>
     <resources>
         <image name="NowPlayingBars-3" width="20" height="19"/>
-        <image name="background" width="320" height="568"/>
+        <image name="backgroundOnda" width="414" height="736"/>
         <image name="btn-pause" width="44" height="44"/>
         <image name="btn-play" width="44" height="44"/>
         <image name="logo-onda-fuenlabrada-300x234" width="300" height="234"/>
