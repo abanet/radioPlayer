@@ -15,6 +15,5 @@ import AVFoundation
 struct Player {
   static let urlString = "http://radioserver3.profesionalhosting.com:8024/;stream.mp3"
   static let radio = AVPlayer(URL: NSURL(string: urlString)!)
-  
-  
+
 }

@@ -13,6 +13,7 @@
 		C041A7171CF5BCDF00F2B078 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C041A7161CF5BCDF00F2B078 /* Assets.xcassets */; };
 		C041A71A1CF5BCDF00F2B078 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C041A7181CF5BCDF00F2B078 /* LaunchScreen.storyboard */; };
 		C041A7221CF5BD1500F2B078 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C041A7211CF5BD1500F2B078 /* Player.swift */; };
+		C08EB0031CF70B30004A7AE7 /* AnimationFrames.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08EB0021CF70B30004A7AE7 /* AnimationFrames.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		C041A7191CF5BCDF00F2B078 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C041A71B1CF5BCDF00F2B078 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C041A7211CF5BD1500F2B078 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		C08EB0021CF70B30004A7AE7 /* AnimationFrames.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationFrames.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,10 +63,19 @@
 				C041A7211CF5BD1500F2B078 /* Player.swift */,
 				C041A7131CF5BCDE00F2B078 /* Main.storyboard */,
 				C041A7161CF5BCDF00F2B078 /* Assets.xcassets */,
+				C08EB0041CF70B3A004A7AE7 /* UI Helpers */,
 				C041A7181CF5BCDF00F2B078 /* LaunchScreen.storyboard */,
 				C041A71B1CF5BCDF00F2B078 /* Info.plist */,
 			);
 			path = ondafuenlabrada;
+			sourceTree = "<group>";
+		};
+		C08EB0041CF70B3A004A7AE7 /* UI Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C08EB0021CF70B30004A7AE7 /* AnimationFrames.swift */,
+			);
+			name = "UI Helpers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,6 +110,11 @@
 				TargetAttributes = {
 					C041A70B1CF5BCDE00F2B078 = {
 						CreatedOnToolsVersion = 7.3.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -140,6 +156,7 @@
 			files = (
 				C041A7121CF5BCDE00F2B078 /* ViewController.swift in Sources */,
 				C041A7221CF5BD1500F2B078 /* Player.swift in Sources */,
+				C08EB0031CF70B30004A7AE7 /* AnimationFrames.swift in Sources */,
 				C041A7101CF5BCDE00F2B078 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,6 +307,7 @@
 				C041A7201CF5BCDF00F2B078 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

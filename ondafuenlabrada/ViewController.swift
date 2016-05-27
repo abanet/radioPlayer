@@ -13,9 +13,15 @@ class ViewController: UIViewController {
 
   @IBOutlet weak var viewSlide: UIView!
   @IBOutlet weak var slider: UISlider!
+  @IBOutlet weak var nowPlayingImageView: UIImageView!
   
+  @IBOutlet weak var logoOndoFuenlabrada: UIImageView!
   
   let radioPlayer = Player.radio
+  
+  // Apple: An audio session is a singleton object that you employ to set the audio context for your app and to express to the system your intentions for your app’s audio behavior.
+  let session: AVAudioSession = AVAudioSession.sharedInstance()
+
   var mpVolumeSlider = UISlider()
 
   
@@ -24,12 +30,27 @@ class ViewController: UIViewController {
     
     // Configuración de la radio
     radioPlayer.rate = 1.0
-    setupVolumeSlider()
+    
+    
+    // Apple: When using this category, your app audio continues with the Silent switch set to silent or when the screen locks. (The switch is called the Ring/Silent switch on iPhone.) To continue playing audio when your app transitions to the background (for example, when the screen locks), add the audio value to the UIBackgroundModes key in your information property list file.
+    do {
+      try session.setCategory(AVAudioSessionCategoryPlayback)
+    } catch {
+      // error
+    }
+    
   }
   
   
+  
+  
   override func viewWillAppear(animated: Bool) {
-    // Dibujamos el volumen actual al entrar en la app.
+    // Establecemos el slider para el volumen
+    setupVolumeSlider()
+    // Creamos y lanzamos la animación (al arrancar la app se escuchará la radio por defecto)
+    createNowPlayingAnimation()
+    startNowPlayingAnimation()
+
     
   }
   override func didReceiveMemoryWarning() {
@@ -42,11 +63,13 @@ class ViewController: UIViewController {
   @IBAction func playRadio(sender: AnyObject) {
     print("play")
     radioPlayer.play()
+    startNowPlayingAnimation()
 
   }
   
   
   @IBAction func stopRadio(sender: AnyObject) {
+    stopNowPlayingAnimation()
     radioPlayer.pause()
   }
   
@@ -74,7 +97,31 @@ class ViewController: UIViewController {
     
   }
   
+  // Animación 
+  func createNowPlayingAnimation() {
 
+    // Create Animation
+    nowPlayingImageView.animationImages = AnimationFrames.createFrames()
+    nowPlayingImageView.animationDuration = 0.7
+    
+  }
+  
+  func startNowPlayingAnimation() {
+    nowPlayingImageView.startAnimating()
+  }
+  
+  func stopNowPlayingAnimation() {
+    nowPlayingImageView.stopAnimating()
+  }
+  
+  // MARK: Share
+  
+  @IBAction func shareRadio(sender: AnyObject) {
+    let songToShare = "¡Escuchando ondaFuenlabrada a través de su app de radio para iPhone!"
+  // let activityViewController = UIActivityViewController(activityItems: [songToShare, track.artworkImage!], applicationActivities: nil)
+    let activityViewController = UIActivityViewController(activityItems: [songToShare, logoOndoFuenlabrada.image!], applicationActivities: nil)
+    presentViewController(activityViewController, animated: true, completion: nil)
+  }
   
 }
 
