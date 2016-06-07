@@ -6,8 +6,9 @@
 //  Copyright © 2016 abanet. All rights reserved.
 //
 
-import UIKit
+import AVKit
 import MediaPlayer
+
 
 class ViewController: UIViewController {
 
@@ -22,8 +23,9 @@ class ViewController: UIViewController {
   
   
   let urlString = "http://radioserver3.profesionalhosting.com:8024/;stream.mp3"
-  var radioPlayer = AVPlayer(URL: NSURL(string: "http://radioserver3.profesionalhosting.com:8024/;stream.mp3")!)
+  var radioPlayer: AVPlayer! // = AVPlayer(URL: NSURL(string: "http://radioserver3.profesionalhosting.com:8024/;stream.mp3")!)
   var estaSonando = true
+  var paradoPorFallodeRed = false
   
   // Apple: An audio session is a singleton object that you employ to set the audio context for your app and to express to the system your intentions for your app’s audio behavior.
   let session: AVAudioSession = AVAudioSession.sharedInstance()
@@ -36,15 +38,8 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-      }
-  
-  
-  override func viewWillAppear(animated: Bool) {
     
-    radioPlayer.rate = 1.0
-    radioPlayer.play()
-
-    // Detección de red
+    //reachability
     do {
       reachability = try Reachability.reachabilityForInternetConnection()
     } catch {
@@ -52,6 +47,7 @@ class ViewController: UIViewController {
       return
     }
     
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
     NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
     do {
       try reachability?.startNotifier()
@@ -65,18 +61,27 @@ class ViewController: UIViewController {
         print("Creando y lanzando radio")
         //radioPlayer = AVPlayer(URL: NSURL(string: urlString)!)
         //radioPlayer!.rate = 1.0
-        playRadio(btnPlay)
+        //playRadio(btnPlay)
       }
     } else {
       print("viewVillAppear: NO hay red")
     }
     
-    print("entrando en willAppear. Avplayer: \(radioPlayer)")
+    // Radio en Play
+    self.radioPlayer = AVPlayer(URL: NSURL(string: urlString)!)
+    self.radioPlayer.rate = 1.0
+    self.radioPlayer.play()
     
     
     // Inicialmente la radio está encendida
     btnPlay.enabled = false
     btnPausa.enabled = true
+  }
+  
+  
+  override func viewWillAppear(animated: Bool) {
+    
+    print("entrando en willAppear. Avplayer: \(radioPlayer)")
     
 
     // Apple: When using this category, your app audio continues with the Silent switch set to silent or when the screen locks. (The switch is called the Ring/Silent switch on iPhone.) To continue playing audio when your app transitions to the background (for example, when the screen locks), add the audio value to the UIBackgroundModes key in your information property list file.
@@ -91,17 +96,14 @@ class ViewController: UIViewController {
     // Creamos y lanzamos la animación (al arrancar la app se escuchará la radio por defecto)
     createNowPlayingAnimation()
     startNowPlayingAnimation()
-    estaSonando = true
-
     
   }
   
+
   override func viewWillDisappear(animated: Bool) {
     // Dejamos de escuchar para saber si tenemos red
     reachability?.stopNotifier()
-    NSNotificationCenter.defaultCenter().removeObserver(self,
-                                                        name: ReachabilityChangedNotification,
-                                                        object: reachability)
+    //NSNotificationCenter.defaultCenter().removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
   }
   
   override func didReceiveMemoryWarning() {
@@ -114,6 +116,11 @@ class ViewController: UIViewController {
 
   // MARK:  Botones de radio
   @IBAction func playRadio(sender: AnyObject) {
+    if paradoPorFallodeRed {
+      self.radioPlayer = AVPlayer(URL: NSURL(string: urlString)!)
+      self.radioPlayer.rate = 1.0
+      paradoPorFallodeRed = false
+    }
     print("Play pulsado: \(radioPlayer.status.rawValue)")
     print("AVPlayer en el momento de pulsar Play: \(radioPlayer)")
     radioPlayer.play()
@@ -197,7 +204,11 @@ class ViewController: UIViewController {
       }
     } else {
       print("Network not reachable")
+      let alert = UIAlertController(title: "Atención", message: "Parece que la radio se paró por pérdida de red. Pulsa 'Play' de nuevo cuando tengas red disponible.", preferredStyle: UIAlertControllerStyle.Alert)
+      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+      self.presentViewController(alert, animated: true, completion: nil)
       stopRadio(btnPausa)
+      paradoPorFallodeRed = true
     }
   }
   
