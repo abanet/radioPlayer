@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundOnda" translatesAutoresizingMaskIntoConstraints="NO" id="nOK-Xd-ORd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fondo1" translatesAutoresizingMaskIntoConstraints="NO" id="nOK-Xd-ORd">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pex-Yy-fyr">
@@ -133,7 +133,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a4E-vA-6UF">
-                                <rect key="frame" x="532" y="566" width="26" height="26"/>
+                                <rect key="frame" x="554" y="566" width="26" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="26" id="fRI-XV-GH9"/>
                                     <constraint firstAttribute="height" constant="26" id="urf-87-iWK"/>
@@ -142,14 +142,6 @@
                                 <connections>
                                     <action selector="shareRadio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gjE-bm-77p"/>
                                 </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTW-SM-rkJ">
-                                <rect key="frame" x="566" y="570" width="22" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="22" id="aZ7-Io-aQJ"/>
-                                    <constraint firstAttribute="height" constant="22" id="dP4-HO-OwI"/>
-                                </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-onda-fuenlabrada-300x234" translatesAutoresizingMaskIntoConstraints="NO" id="vWX-wH-gJg">
                                 <rect key="frame" x="180" y="110" width="240" height="128"/>
@@ -173,18 +165,14 @@
                             <constraint firstItem="pex-Yy-fyr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TWW-Eb-fde"/>
                             <constraint firstItem="3CZ-0A-lL9" firstAttribute="top" secondItem="pex-Yy-fyr" secondAttribute="bottom" constant="59" id="UL5-l1-AY1"/>
                             <constraint firstItem="pex-Yy-fyr" firstAttribute="top" secondItem="nOK-Xd-ORd" secondAttribute="bottom" id="XT8-7B-ePR"/>
-                            <constraint firstItem="NTW-SM-rkJ" firstAttribute="leading" secondItem="a4E-vA-6UF" secondAttribute="trailing" constant="8" id="Zf5-QO-Cz2"/>
-                            <constraint firstAttribute="trailing" secondItem="NTW-SM-rkJ" secondAttribute="trailing" constant="12" id="dzv-CD-oca"/>
+                            <constraint firstAttribute="trailing" secondItem="a4E-vA-6UF" secondAttribute="trailing" constant="20" symbolic="YES" id="Zwj-TI-NRz"/>
                             <constraint firstItem="nOK-Xd-ORd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="glL-Dm-naz"/>
-                            <constraint firstItem="a4E-vA-6UF" firstAttribute="baseline" secondItem="NTW-SM-rkJ" secondAttribute="baseline" id="ivh-z8-eIR"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nOK-Xd-ORd" secondAttribute="bottom" id="na2-N9-kQu"/>
                             <constraint firstItem="3CZ-0A-lL9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sEd-gz-6OY"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="NTW-SM-rkJ" secondAttribute="bottom" constant="8" symbolic="YES" id="ue1-Rx-Zh5"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="XT8-7B-ePR"/>
-                                <exclude reference="ivh-z8-eIR"/>
                             </mask>
                         </variation>
                     </view>
@@ -204,9 +192,9 @@
     </scenes>
     <resources>
         <image name="NowPlayingBars-3" width="20" height="19"/>
-        <image name="backgroundOnda" width="414" height="736"/>
         <image name="btn-pause" width="44" height="44"/>
         <image name="btn-play" width="44" height="44"/>
+        <image name="fondo1" width="640" height="1136"/>
         <image name="logo-onda-fuenlabrada-300x234" width="300" height="234"/>
         <image name="share" width="32" height="32"/>
         <image name="vol-max" width="17" height="14"/>
