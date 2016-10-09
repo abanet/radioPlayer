@@ -47,8 +47,8 @@ class ViewController: UIViewController {
       return
     }
     
-    NSNotificationCenter.defaultCenter().removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(self.reachabilityChanged(_:)), name: ReachabilityChangedNotification, object: reachability)
+    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ReachabilityChangedNotification), object: reachability)
+    NotificationCenter.default.addObserver(self, selector:#selector(self.reachabilityChanged(_:)), name: NSNotification.Name(rawValue: ReachabilityChangedNotification), object: reachability)
     do {
       try reachability?.startNotifier()
     } catch {
@@ -68,18 +68,18 @@ class ViewController: UIViewController {
     }
     
     // Radio en Play
-    self.radioPlayer = AVPlayer(URL: NSURL(string: urlString)!)
+    self.radioPlayer = AVPlayer(url: URL(string: urlString)!)
     self.radioPlayer.rate = 1.0
     self.radioPlayer.play()
     
     
     // Inicialmente la radio está encendida
-    btnPlay.enabled = false
-    btnPausa.enabled = true
+    btnPlay.isEnabled = false
+    btnPausa.isEnabled = true
   }
   
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     
     print("entrando en willAppear. Avplayer: \(radioPlayer)")
     
@@ -100,7 +100,7 @@ class ViewController: UIViewController {
   }
   
 
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     // Dejamos de escuchar para saber si tenemos red
     reachability?.stopNotifier()
     //NSNotificationCenter.defaultCenter().removeObserver(self, name: ReachabilityChangedNotification, object: reachability)
@@ -115,9 +115,9 @@ class ViewController: UIViewController {
 
 
   // MARK:  Botones de radio
-  @IBAction func playRadio(sender: AnyObject) {
+  @IBAction func playRadio(_ sender: AnyObject) {
     if paradoPorFallodeRed {
-      self.radioPlayer = AVPlayer(URL: NSURL(string: urlString)!)
+      self.radioPlayer = AVPlayer(url: URL(string: urlString)!)
       self.radioPlayer.rate = 1.0
       paradoPorFallodeRed = false
     }
@@ -125,24 +125,24 @@ class ViewController: UIViewController {
     print("AVPlayer en el momento de pulsar Play: \(radioPlayer)")
     radioPlayer.play()
     startNowPlayingAnimation()
-    btnPlay.enabled = false
-    btnPausa.enabled = true
+    btnPlay.isEnabled = false
+    btnPausa.isEnabled = true
     estaSonando = true
   }
   
   
-  @IBAction func stopRadio(sender: AnyObject) {
+  @IBAction func stopRadio(_ sender: AnyObject) {
     stopNowPlayingAnimation()
     radioPlayer.pause()
     radioPlayer.cancelPendingPrerolls() // no parece tener efecto.
-    btnPlay.enabled = true
-    btnPausa.enabled = false
+    btnPlay.isEnabled = true
+    btnPausa.isEnabled = false
     estaSonando = false
 
   }
   
   
-  @IBAction func cambiarVolumen(sender: UISlider) {
+  @IBAction func cambiarVolumen(_ sender: UISlider) {
     mpVolumeSlider.value = sender.value
   }
   
@@ -151,11 +151,11 @@ class ViewController: UIViewController {
   func setupVolumeSlider() {
     // Note: This slider implementation uses a MPVolumeView
     // The volume slider only works in devices, not the simulator.
-    viewSlide.backgroundColor = UIColor.clearColor()
+    viewSlide.backgroundColor = UIColor.clear
     let volumeView = MPVolumeView(frame: viewSlide.bounds)
     for view in volumeView.subviews {
       let uiview: UIView = view as UIView
-      if (uiview.description as NSString).rangeOfString("MPVolumeSlider").location != NSNotFound {
+      if (uiview.description as NSString).range(of: "MPVolumeSlider").location != NSNotFound {
         mpVolumeSlider = (uiview as! UISlider)
       }
     }
@@ -184,15 +184,15 @@ class ViewController: UIViewController {
   
   // MARK: Share
   
-  @IBAction func shareRadio(sender: AnyObject) {
+  @IBAction func shareRadio(_ sender: AnyObject) {
     let songToShare = "¡Escuchando ondaFuenlabrada a través de su app de radio para iPhone!"
   // let activityViewController = UIActivityViewController(activityItems: [songToShare, track.artworkImage!], applicationActivities: nil)
     let activityViewController = UIActivityViewController(activityItems: [songToShare, logoOndoFuenlabrada.image!], applicationActivities: nil)
-    presentViewController(activityViewController, animated: true, completion: nil)
+    present(activityViewController, animated: true, completion: nil)
   }
   
   // MARK: reachabilityChanged
-  func reachabilityChanged(note: NSNotification) {
+  func reachabilityChanged(_ note: Notification) {
     
     let reachability = note.object as! Reachability
     
@@ -204,9 +204,9 @@ class ViewController: UIViewController {
       }
     } else {
       print("Network not reachable")
-      let alert = UIAlertController(title: "Atención", message: "Parece que la radio se paró por pérdida de red. Pulsa 'Play' de nuevo cuando tengas red disponible.", preferredStyle: UIAlertControllerStyle.Alert)
-      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-      self.presentViewController(alert, animated: true, completion: nil)
+      let alert = UIAlertController(title: "Atención", message: "Parece que la radio se paró por pérdida de red. Pulsa 'Play' de nuevo cuando tengas red disponible.", preferredStyle: UIAlertControllerStyle.alert)
+      alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+      self.present(alert, animated: true, completion: nil)
       stopRadio(btnPausa)
       paradoPorFallodeRed = true
     }
